@@ -29,21 +29,21 @@
         When reccursion ends we print current character
     </pre>
     ```javascript
-        function subSeq(str, current = '', index = 0) {
-        if (index === str.length) {
-            console.log(current);
-            return;
-        }
+    function subSeq(str, current = '', index = 0) {
+    if (index === str.length) {
+        console.log(current);
+        return;
+    }
 
-        // Include the current character in the subsequence
-        subSeq(str, current + str[index], index + 1);
+    // Include the current character in the subsequence
+    subSeq(str, current + str[index], index + 1);
 
-        // Exclude the current character from the subsequence
-        subSeq(str, current, index + 1);
-        }
+    // Exclude the current character from the subsequence
+    subSeq(str, current, index + 1);
+    }
 
-        // Example usage
-        let inputString = "abc";
-        subSeq(inputString);
+    // Example usage
+    let inputString = "abc";
+    subSeq(inputString);
     ```
 </div>
