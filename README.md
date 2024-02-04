@@ -12,7 +12,7 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
 * We have one termination condition 
 * We have two loops inside one reccursion where we include current character or not
 * When reccursion ends we print current character
-* ![source image](https://lh6.googleusercontent.com/CEieqI0YHVpWwUmFlQ8crhsoba-FxZ-gAYSdXctbvTqEXjJ0NMwU6zhWvaIb0r6bxfMNakuaS_gEfUkg6OhG92kK5kunT8aMC66FvqVwS79qVNbzfhr5tKZXztuRix8C9qMo4RXG)
+* ![source image](https://shorturl.at/esxI5)
 
 ```javascript
     function subSeq(str, current = '', index = 0) {
