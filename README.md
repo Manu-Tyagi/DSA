@@ -8,10 +8,10 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
 
 ## Print All Subsequence of a String
 	
-We resolve this question using Reccursion
-We have one termination condition 
-We have two loops inside one reccursion where we include current character or not
-When reccursion ends we print current character
+* We resolve this question using Reccursion
+* We have one termination condition 
+* We have two loops inside one reccursion where we include current character or not
+* When reccursion ends we print current character
 
 
 ```javascript
@@ -30,9 +30,9 @@ When reccursion ends we print current character
 
 ## Reverse the Array
 
-1. Find start and end index of array
-2. Swap a[start] with a[end]
-3. start++ & end –
+* Find start and end index of array
+* Swap a[start] with a[end]
+* start++ & end –
 
 ```javascript
 let a=[1,2,3,4,5,6]
