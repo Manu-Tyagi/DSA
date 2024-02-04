@@ -30,6 +30,7 @@
     </pre>
     <div>
     ```
+    
     function subSeq(str, current = '', index = 0) {
     if (index === str.length) {
         console.log(current);
@@ -40,6 +41,7 @@
     }
     let inputString = "abc";
     subSeq(inputString);
+
     ```
     </div>
 </div>
