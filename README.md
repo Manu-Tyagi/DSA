@@ -34,15 +34,9 @@
         console.log(current);
         return;
     }
-
-    // Include the current character in the subsequence
     subSeq(str, current + str[index], index + 1);
-
-    // Exclude the current character from the subsequence
     subSeq(str, current, index + 1);
     }
-
-    // Example usage
     let inputString = "abc";
     subSeq(inputString);
     ```
