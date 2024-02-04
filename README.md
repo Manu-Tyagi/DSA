@@ -28,7 +28,7 @@
         We have two loops inside one reccursion where we include current character or not
         When reccursion ends we print current character
     </pre>
-    <code>
+    ```
         function subSeq(str, current = '', index = 0) {
         if (index === str.length) {
             console.log(current);
@@ -45,5 +45,5 @@
         // Example usage
         let inputString = "abc";
         subSeq(inputString);
-    </code>
+    ```
 </div>
