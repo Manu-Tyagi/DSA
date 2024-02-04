@@ -28,12 +28,12 @@
 
     ```
     function subSeq(str, current = '', index = 0) {
-    if (index === str.length) {
-        console.log(current);
-        return;
-    }
-    subSeq(str, current + str[index], index + 1);
-    subSeq(str, current, index + 1);
+        if (index === str.length) {
+            console.log(current);
+            return;
+        }
+        subSeq(str, current + str[index], index + 1);
+        subSeq(str, current, index + 1);
     }
     let inputString = "abc";
     subSeq(inputString);
