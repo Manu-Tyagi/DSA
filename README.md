@@ -1,7 +1,7 @@
 # DSA
 
 
-1. [Print All Subsequence of a String](#topic-1)
+1. [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
 
 
 ## Print All Subsequence of a String
