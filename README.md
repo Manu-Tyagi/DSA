@@ -30,9 +30,9 @@ When reccursion ends we print current character
 
 ## Reverse the Array
 
-Find start and end index of array
-Swap a[start] with a[end]
-start++ & end –
+1. Find start and end index of array
+2. Swap a[start] with a[end]
+3. start++ & end –
 
 ```javascript
 let a=[1,2,3,4,5,6]
