@@ -2,8 +2,9 @@
 
 Hello this is the collection of my all studied topics on DSA, code snippets mostly will be in Javascript
 
-1. [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
-1. [Reverse the Array](#reverse-the-array)
+* [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
+* [Reverse the Array](#reverse-the-array)
+* [Permutations of a given string](#permutations-of-a-given-string)
 
 
 ## Print All Subsequence of a String
@@ -47,5 +48,32 @@ while(s<e){
     e--;
 }
 console.log('rev arr',a);
+```
+
+## Permutations of a given string
+
+* Take current string as empty and remaining string
+* Pick one string in current and and remove that from remaining and start again permutation
+* repeate above step for all strings (inital combo will be (a,bc)(b,ac)(c,ab))
+* ![source image](https://shorturl.at/FGVW7)
+
+```javascript
+const result = [];
+
+function permute(current, remaining) {
+    if (remaining.length === 0) {
+        result.push(current);
+        return;
+    }
+    for (let i = 0; i < remaining.length; i++) {
+        const nextCurrent = current + remaining[i];
+        const nextRemaining = remaining.slice(0, i) + remaining.slice(i + 1);
+        // if i = 1, nextCurrent = ac , nextRemaining = b for first iteration
+        permute(nextCurrent, nextRemaining);
+    }
+}
+
+permute('', "abc");
+console.log(result);
 ```
 
