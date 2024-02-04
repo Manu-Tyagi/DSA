@@ -18,18 +18,15 @@
 <br>
 <br>
 <div id="topic-1">
-	<h2>
-		Print All Subsequence of a String
-	</h2>
-	<br>
-	<pre>
-        We resolve this question using Reccursion
-        We have one termination condition 
-        We have two loops inside one reccursion where we include current character or not
-        When reccursion ends we print current character
-    </pre>
-    ```
 
+	#Print All Subsequence of a String
+
+    We resolve this question using Reccursion
+    We have one termination condition 
+    We have two loops inside one reccursion where we include current character or not
+    When reccursion ends we print current character
+
+    ```
     function subSeq(str, current = '', index = 0) {
     if (index === str.length) {
         console.log(current);
@@ -38,9 +35,8 @@
     subSeq(str, current + str[index], index + 1);
     subSeq(str, current, index + 1);
     }
-
     let inputString = "abc";
     subSeq(inputString);
-
     ```
+
 </div>
