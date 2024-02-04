@@ -28,8 +28,7 @@
         We have two loops inside one reccursion where we include current character or not
         When reccursion ends we print current character
     </pre>
-    new tes 
-    
+
     ```javascript
     function subSeq(str, current = '', index = 0) {
     if (index === str.length) {
@@ -42,20 +41,6 @@
 
     let inputString = "abc";
     subSeq(inputString);
-
     ```
 
-   test
-
-   ```javascript
-    import { createElement } from 'react';
-
-    export default function App() {
-      return createElement(
-        'h1',
-        { className: 'greeting' },
-        'Hello, this is a JSX Code!'
-      );
-    }
-    ```
 </div>
