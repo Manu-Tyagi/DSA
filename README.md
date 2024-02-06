@@ -7,6 +7,9 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
 * [Permutations of a given string](#permutations-of-a-given-string)
 * [Split the binary string into substrings with equal number of 0s and 1s](#split-the-binary-string-into-substrings)
 * [Next Permutation of a string](#next-permutation-of-a-string)
+* [Parenthesis Checker](#parenthesis-checker)
+* [Word Break](#word-break)
+* [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
 
 
 ## Print All Subsequence of a String
@@ -168,4 +171,117 @@ arr = [1, 1, 5];
 nextPermutation(arr);
 console.log(arr);  // Output: [1, 5, 1]
 
+```
+
+## Parenthesis Checker
+
+* Make two array, one of openChars, and another for closeChars
+* If character belongs to openChars, push in stack
+* If character belongs to closeChars, pop element and check it must belong to corresponding openChars
+* If true then continue if false then break and return false
+
+```javascript
+function isBalanced(exp) {
+    const stack = [];
+    const openChars = ['{', '(', '['];
+    const closeChars = ['}', ')', ']'];
+
+    for (let i = 0; i < exp.length; i++) {
+        const char = exp[i];
+        if (openChars.includes(char)) {
+            stack.push(char);
+        } else if (closeChars.includes(char)) {
+            const correspondingOpenChar = openChars[closeChars.indexOf(char)];
+            if (stack.length === 0 || stack.pop() !== correspondingOpenChar) {
+                return false;
+            }
+        }
+    }
+
+    return stack.length === 0;
+}
+
+// Drive code
+const exp1 = "[()]{}{[()()]()}";
+const exp2 = "[(])";
+
+if (isBalanced(exp1)) {
+    console.log("balanced");
+} else {
+    console.log("not balanced");
+}
+
+if (isBalanced(exp2)) {
+    console.log("balanced");
+} else {
+    console.log("not balanced");
+}
+
+```
+
+## Word Break
+
+* Create DP array fill values with false and first value must be true
+* For each character create substring and check if it is in dictionary or not
+* If it is in dictionary mark that index as true in DP array
+* next time create substring from that index and go further
+* If last index of DP array is true then return true else false
+
+```javascript
+function wordBreak(A, B) {
+    const n = A.length;
+    const dp = new Array(n + 1).fill(false);
+    dp[0] = true;
+
+    for (let i = 1; i <= n; i++) {
+        for (let j = 0; j < i; j++) {
+            if (dp[j] && B.includes(A.substring(j, i))) {
+                dp[i] = true;
+                break;
+            }
+        }
+    }
+
+    return dp[n] ? 1 : 0;
+}
+
+// Example usage:
+const A = "leetcode";
+const B = ["leet", "code"];
+
+console.log(wordBreak(A, B)); // Output: 1 (A can be segmented into "leet code")
+```
+
+## Convert Sentence into mobile numeric keypad sequence
+
+* Create an array to store all combination for each characters
+* If input character is blank ' ' choose 0 from sequence
+* If input character is alphabet then find corresponding number from charCodeAt method and use that number as index
+
+```javascript
+let str = ["2", "22", "222",
+       "3", "33", "333",
+       "4", "44", "444",
+       "5", "55", "555",
+       "6", "66", "666",
+       "7", "77", "777", "7777",
+       "8", "88", "888",
+       "9", "99", "999", "9999", "0" ]
+     
+let input = "GEEKS FOR GEEKS";
+
+console.log('print sequence',printSeq(str,input))
+function printSeq(arr,input){
+    let output="";
+    for(let i=0;i<input.length;i++){
+        if(input[i] == ' '){
+            output += arr[26]
+        }
+        else{
+            let p = input[i].charCodeAt(0) - 'A'.charCodeAt(0);
+            output += arr[p]
+        }
+    }
+    return output;
+}
 ```
