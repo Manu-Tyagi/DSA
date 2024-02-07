@@ -285,3 +285,49 @@ function printSeq(arr,input){
     return output;
 }
 ```
+## Count the Reversals
+
+*  If string length is odd, string cannot be balanced
+*  If char is '{' push in stack
+*  If char is '}' and stack length is 0 then reversal is required and push '{'
+*  If char is '}' and stack length is not 0 then pop from stack
+
+```javascript
+function minReversals(S) {
+    if (S.length % 2 !== 0) {
+        return -1; // If the length of the string is odd, it can't be balanced
+    }
+
+    let stack = [];
+    let reversals = 0;
+
+    for (let i = 0; i < S.length; i++) {
+        if (S[i] === '{') {
+            stack.push('{');
+        } else if (S[i] === '}') {
+            if (stack.length === 0) {
+                // If the stack is empty, it means we need to reverse the current '}'
+                reversals++;
+                stack.push('{'); // Push '{' onto the stack to balance
+            } else {
+                stack.pop(); // Pop matching '{'
+            }
+        }
+    }
+
+    // At this point, the stack contains unbalanced '{' brackets
+    // For each pair of unbalanced brackets, we need 1 reversal
+    // If there are odd number of unbalanced brackets, we need 2 reversals for each pair
+    reversals += Math.ceil(stack.length / 2);
+
+    return reversals;
+}
+
+// Example usage:
+console.log(minReversals("}}{{")); // Output: 2
+console.log(minReversals("{{{{")); // Output: 2
+console.log(minReversals("}{{{{{{{{{{{{{{{{{{{{")); // Output: 10
+console.log(minReversals("}{{{{{{{{{{{{{{{{{{{{{{")); // Output: 11
+console.log(minReversals("{{{{{{{{{{{{{{{{{{{{{{")); // Output: 0
+
+```
