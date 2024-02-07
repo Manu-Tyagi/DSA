@@ -10,6 +10,7 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
 * [Parenthesis Checker](#parenthesis-checker)
 * [Word Break](#word-break)
 * [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
+* [Count the Reversals](#count-the-reversals)
 
 
 ## Print All Subsequence of a String
