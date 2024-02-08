@@ -11,6 +11,8 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
 * [Word Break](#word-break)
 * [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
 * [Count the Reversals](#count-the-reversals)
+* [Find maximum and minimum element in array](#find-maximum-and-minimum-element-in-array)
+* [Find kth smallest element in array](#find-kth-smallest-element-in-array)
 
 
 ## Print All Subsequence of a String
@@ -331,4 +333,59 @@ console.log(minReversals("}{{{{{{{{{{{{{{{{{{{{")); // Output: 10
 console.log(minReversals("}{{{{{{{{{{{{{{{{{{{{{{")); // Output: 11
 console.log(minReversals("{{{{{{{{{{{{{{{{{{{{{{")); // Output: 0
 
+```
+
+## Find maximum and minimum element in array
+
+* Take first two element as minimum and maximum
+* Take next pair and compare them with existing one
+* In n/2 loop you will get minimum and maximum
+
+```javascript
+let arr = [10,23,31,45,1,4,6,90]
+let minmax=findMinMax(arr);
+console.log('min->',minmax[0],'max->',minmax[1]);
+
+function findMinMax(a){
+let mx = 0;
+let mn =0;
+let n= a.length;
+let i =0;
+if(n%2 == 0){
+    mn = Math.min(a[0],a[1]);
+    mx = Math.max(a[0],a[1]);
+    i=2;
+}
+else{
+    mx = a[0];
+    mn = a[0];
+    i=1;
+}
+
+while(i<n-1){
+    if(a[i]>a[i+1]){
+        mx=Math.max(mx,a[i]);
+        mn=Math.min(mn,a[i+1]);
+    }
+    else{
+        mx=Math.max(mx,a[i+1]);
+        mn=Math.min(mn,a[i]);
+    }
+    i=i+2;
+}
+return [mn,mx];
+}
+```
+
+## Find kth smallest element in array
+
+* Sort the array
+* Return k-1 element
+
+```javascript
+class Solution {
+    kthSmallest(arr,l,r,k){
+        return arr.sort((a,b)=>(a-b))[k-1];
+    }
+}
 ```
