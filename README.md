@@ -13,6 +13,8 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
 * [Count the Reversals](#count-the-reversals)
 * [Find maximum and minimum element in array](#find-maximum-and-minimum-element-in-array)
 * [Find kth smallest element in array](#find-kth-smallest-element-in-array)
+* [Count of number of given string in 2D character array](#count-of-number-of-given-string-in-2D-character-array)
+* [Given the array of size N, containing only 0,1,2, sort without using sorting algorithm](#sort-without-using-sorting-algorithm)
 
 
 ## Print All Subsequence of a String
@@ -387,5 +389,80 @@ class Solution {
     kthSmallest(arr,l,r,k){
         return arr.sort((a,b)=>(a-b))[k-1];
     }
+}
+```
+
+## Count of number of given string in 2D character array
+
+* iterate through each element to check first character of string
+* if first character found, check subsequent characters in the row
+* if subsequent characters found, increase counter, finally return counter
+
+```javascript
+function countStringOccurrences(matrix, targetString) {
+    let count = 0;
+
+    // Iterate through each row
+    for (let i = 0; i < matrix.length; i++) {
+        // Iterate through each element in the row
+        for (let j = 0; j < matrix[i].length; j++) {
+            // If the current element matches the target string
+            // increase the count
+            if (matrix[i][j] === targetString[0]) {
+                let k = 1;
+                let x = i, y = j;
+                let found = true;
+                while (k < targetString.length) {
+                    if (++y >= matrix[i].length || matrix[x][y] !== targetString[k]) {
+                        found = false;
+                        break;
+                    }
+                    k++;
+                }
+                if (found) count++;
+            }
+        }
+    }
+
+    return count;
+}
+
+// Example usage:
+const matrix = [
+    ['a', 'b', 'c', 'd'],
+    ['e', 'f', 'a', 'b'],
+    ['a', 'b', 'c', 'd']
+];
+
+const targetString = 'ab';
+console.log(countStringOccurrences(matrix, targetString)); // Output: 4
+
+```
+
+## Sort without using sorting Algorithm
+
+* Traverse through array
+* Create an object container 0,1,2
+* Increase counter of each field when number occurs while traversing
+* Loop through ek field in object and assign its key to new array
+
+```javascript
+sort(arr, N)
+{
+    // your code here
+    let a =[];
+    let obj={
+    0:0,
+    1:0,
+    2:0
+    };
+    arr.map((a)=>{
+        obj[a]++;
+    });
+    Object.keys(obj).forEach((key)=>{
+        for(let i=0;i<obj[key];i++)
+            a.push(parseInt(key));
+    });
+    return a;
 }
 ```
