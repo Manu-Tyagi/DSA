@@ -615,6 +615,13 @@ console.log(boyerMooreHorspool(text, pattern)); // Output: 4 (pattern found at i
 
 ## Convert Roman Numbers Into Decimals
 
+*   Move right to left
+*   if prev > curr 
+    *   decimal - curr 
+*   else
+    *   decimal + curr
+*   return decimal
+
 ```javascript
 function romanToDecimal(roman) {
     const romanNumerals = {
