@@ -477,7 +477,7 @@ sort(arr, N)
 * If row or column < 0 or row or coloumn expand out of grid or grid[row][col] != word[index] return false
 * else perform DFS again for [r+1][c], [r-1][c], [r][c+1], [r][c-1]
 * if character visited mark it with #
-* [solution explaination](#https://www.youtube.com/watch?v=4QjCc7HeR8s&ab_channel=CuriousChahar)
+* [solution explaination](https://www.youtube.com/watch?v=4QjCc7HeR8s&ab_channel=CuriousChahar)
 
 ```javascript
 function searchWord(grid, word) {
@@ -553,6 +553,7 @@ console.log(searchWord(grid, 'ABCB'));   // Output: false
 * compare pattern from behind
 * if character found move index to left
 * else skip characters acording to badtable
+* [solution explaination](https://www.youtube.com/watch?v=PHXAOKQk2dw&ab_channel=MikeSlade)
 
 ```javascript
 function boyerMooreHorspool(text, pattern) {
