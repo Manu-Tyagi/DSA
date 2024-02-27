@@ -18,6 +18,7 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
   - [Sort without using sorting Algorithm](#sort-without-using-sorting-algorithm)
   - [Search a word in 2D grid of characters](#search-a-word-in-2d-grid-of-characters)
   - [Boyer Moore Algorithm](#boyer-moore-algorithm)
+  - [Convert Roman Numbers Into Decimals](#convert-roman-numbers-into-decimals)
 
 
 ## Print All Subsequence of a String
@@ -609,5 +610,41 @@ const text = "ABAAABCD";
 const pattern = "ABC";
 
 console.log(boyerMooreHorspool(text, pattern)); // Output: 4 (pattern found at index 4)
+
+```
+
+## Convert Roman Numbers Into Decimals
+
+```javascript
+function romanToDecimal(roman) {
+    const romanNumerals = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    };
+
+    let decimal = 0;
+    let prevValue = 0;
+
+    for (let i = roman.length - 1; i >= 0; i--) {
+        let currentValue = romanNumerals[roman[i]];
+        if (currentValue < prevValue) {
+            decimal -= currentValue;
+        } else {
+            decimal += currentValue;
+        }
+        prevValue = currentValue;
+    }
+
+    return decimal;
+}
+
+// Example usage:
+const romanNumeral = "XXIV";
+console.log(romanToDecimal(romanNumeral)); // Output: 24
 
 ```
