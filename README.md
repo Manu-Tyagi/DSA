@@ -2,19 +2,22 @@
 
 Hello this is the collection of my all studied topics on DSA, code snippets mostly will be in Javascript
 
-* [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
-* [Reverse the Array](#reverse-the-array)
-* [Permutations of a given string](#permutations-of-a-given-string)
-* [Split the binary string into substrings with equal number of 0s and 1s](#split-the-binary-string-into-substrings)
-* [Next Permutation of a string](#next-permutation-of-a-string)
-* [Parenthesis Checker](#parenthesis-checker)
-* [Word Break](#word-break)
-* [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
-* [Count the Reversals](#count-the-reversals)
-* [Find maximum and minimum element in array](#find-maximum-and-minimum-element-in-array)
-* [Find kth smallest element in array](#find-kth-smallest-element-in-array)
-* [Count of number of given string in 2D character array](#count-of-number-of-given-string-in-2D-character-array)
-* [Given the array of size N, containing only 0,1,2, sort without using sorting algorithm](#sort-without-using-sorting-algorithm)
+- [DSA](#dsa)
+  - [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
+  - [Reverse the Array](#reverse-the-array)
+  - [Permutations of a given string](#permutations-of-a-given-string)
+  - [Split the binary string into substrings](#split-the-binary-string-into-substrings)
+  - [Next Permutation of a string](#next-permutation-of-a-string)
+  - [Parenthesis Checker](#parenthesis-checker)
+  - [Word Break](#word-break)
+  - [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
+  - [Count the Reversals](#count-the-reversals)
+  - [Find maximum and minimum element in array](#find-maximum-and-minimum-element-in-array)
+  - [Find kth smallest element in array](#find-kth-smallest-element-in-array)
+  - [Count of number of given string in 2D character array](#count-of-number-of-given-string-in-2d-character-array)
+  - [Sort without using sorting Algorithm](#sort-without-using-sorting-algorithm)
+  - [Search a word in 2D grid of characters](#search-a-word-in-2d-grid-of-characters)
+  - [Boyer Moore Algorithm](#boyer-moore-algorithm)
 
 
 ## Print All Subsequence of a String
@@ -465,4 +468,145 @@ sort(arr, N)
     });
     return a;
 }
+```
+
+## Search a word in 2D grid of characters
+
+* Perform depth first search
+* If word.length == index that we are searching return true
+* If row or column < 0 or row or coloumn expand out of grid or grid[row][col] != word[index] return false
+* else perform DFS again for [r+1][c], [r-1][c], [r][c+1], [r][c-1]
+* if character visited mark it with #
+* [solution explaination](#https://www.youtube.com/watch?v=4QjCc7HeR8s&ab_channel=CuriousChahar)
+
+```javascript
+function searchWord(grid, word) {
+    const numRows = grid.length;
+    const numCols = grid[0].length;
+    
+    function dfs(row, col, index) {
+        // Base case: If all characters in the word are found
+        if (index === word.length) {
+            return true;
+        }
+        
+        // Boundary conditions and character matching
+        // if row or column becomes negative
+        // if row or column comes out of range
+        if (
+            row < 0 || 
+            col < 0 || 
+            row >= numRows || 
+            col >= numCols || 
+            grid[row][col] !== word[index]
+        ) {
+            return false;
+        }
+        
+        // Mark the current cell as visited
+        const temp = grid[row][col];
+        // Marked as visited
+        grid[row][col] = '#'; 
+        
+        // Explore neighboring cells in all direction
+        const found = dfs(row + 1, col, index + 1) ||
+                     dfs(row - 1, col, index + 1) ||
+                     dfs(row, col + 1, index + 1) ||
+                     dfs(row, col - 1, index + 1);
+        
+        // Restore the character before backtracking
+        grid[row][col] = temp;
+        
+        return found;
+    }
+    
+    // Iterate through each cell in the grid
+    for (let i = 0; i < numRows; i++) {
+        for (let j = 0; j < numCols; j++) {
+            // if first letter found and dfs return true
+            if (grid[i][j] === word[0] && dfs(i, j, 0)) {
+                return true;
+            }
+        }
+    }
+    
+    return false; // Word not found
+}
+
+// Example usage:
+const grid = [
+    ['A', 'B', 'C', 'E'],
+    ['S', 'F', 'C', 'S'],
+    ['A', 'D', 'E', 'E']
+];
+
+console.log(searchWord(grid, 'ABCCED')); // Output: true
+console.log(searchWord(grid, 'SEE'));    // Output: true
+console.log(searchWord(grid, 'ABCB'));   // Output: false
+
+```
+
+## Boyer Moore Algorithm
+
+* Make bad match table
+  * max(1,length-index-1)
+* compare pattern from behind
+* if character found move index to left
+* else skip characters acording to badtable
+
+```javascript
+function boyerMooreHorspool(text, pattern) {
+    const textLength = text.length;
+    const patternLength = pattern.length;
+
+    // Function to preprocess the pattern and create the bad character skip table
+    function preprocessPattern(pattern) {
+        const skipTable = {};
+
+        // Filling the table with the rightmost occurrence index of each character in the pattern
+        for (let i = 0; i < patternLength - 1; i++) {
+            skipTable[pattern[i]] = patternLength - i - 1;
+        }
+
+        return skipTable;
+    }
+
+    // Preprocessing the pattern
+    const skipTable = preprocessPattern(pattern);
+
+    // Function to perform the search
+    function search() {
+        let i = patternLength - 1; // Start comparing from the end of the pattern
+        while (i < textLength) {
+            let j = patternLength - 1;
+            let k = i;
+
+            // Matching characters from right to left in the pattern and text
+            while (j >= 0 && pattern[j] === text[k]) {
+                j--;
+                k--;
+            }
+
+            // If a match is found, return the index where the pattern starts
+            if (j === -1) {
+                return k + 1;
+            } else {
+                // Calculate the shift based on the bad character rule
+                const badCharacter = text[i];
+                const shift = skipTable[badCharacter] || patternLength;
+                i += shift;
+            }
+        }
+        return -1; // Pattern not found
+    }
+
+    return search();
+}
+
+// Example usage:
+const text = "ABAAABCD";
+const pattern = "ABC";
+
+console.log(boyerMooreHorspool(text, pattern)); // Output: 4 (pattern found at index 4)
+
 ```
