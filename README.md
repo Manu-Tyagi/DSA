@@ -21,6 +21,7 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
   - [Convert Roman Numbers Into Decimals](#convert-roman-numbers-into-decimals)
   - [Longest Common Prefix](#longest-common-prefix)
   - [Minimum Number Of Flips](#minimum-number-of-flips)
+  - [Second Most Repeating String](#second-most-repeating-string)
 
 
 ## Print All Subsequence of a String
@@ -708,4 +709,43 @@ function minFlip(str){
 }
 
 console.log(minFlip("0001010111"))
+```
+
+## Second Most Repeating String
+
+*  Put string array in map, and record each word frequence
+*  sort map in decending order and return second most value (it should not be equal to first)
+  
+```javascript
+function secondMostRepeatedString(arr) {
+    // Create a map to store the frequency of each string
+    const f = new Map();
+
+    // Count the frequency of each string in the array
+    arr.forEach(str => {
+        if (f.has(str)) {
+            f.set(str, f.get(str) + 1);
+        } else {
+            f.set(str, 1);
+        }
+    });
+
+    // Sort the frequency map by values in descending order
+    const sortedFrequency = [...f.entries()].sort((a, b) => b[1] - a[1]);
+
+    // Find the second most repeated string
+    let secondMostRepeated = null;
+    for (let i = 1; i < sortedFrequency.length; i++) {
+        if (sortedFrequency[i][1] !== sortedFrequency[0][1]) {
+            secondMostRepeated = sortedFrequency[i][0];
+            break;
+        }
+    }
+
+    return secondMostRepeated;
+}
+
+// Test the function
+const arr = ["apple", "banana", "apple", "orange", "banana", "apple", "banana", "orange"];
+console.log(secondMostRepeatedString(arr)); // Output: "orange"
 ```
