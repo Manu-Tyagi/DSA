@@ -22,6 +22,8 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
   - [Longest Common Prefix](#longest-common-prefix)
   - [Minimum Number Of Flips](#minimum-number-of-flips)
   - [Second Most Repeating String](#second-most-repeating-string)
+  - [Minimum Swaps For Bracket Balancing](#minimum-swaps-for-bracket-balancing)
+  - [Longest Common Subsequence](#longest-common-subsequence)
 
 
 ## Print All Subsequence of a String
@@ -748,4 +750,73 @@ function secondMostRepeatedString(arr) {
 // Test the function
 const arr = ["apple", "banana", "apple", "orange", "banana", "apple", "banana", "orange"];
 console.log(secondMostRepeatedString(arr)); // Output: "orange"
+```
+
+## Minimum Swaps For Bracket Balancing
+
+* if we have no '[' before ']' swap is required
+* at the end out of remaining open brackets half of them must be swapped to complete balancing
+
+```javascript
+function minimumSwapsForBracketBalancing(str) {
+    let stack = [];
+    let swaps = 0;
+
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '[') {
+            stack.push('['); // Push open bracket onto the stack
+        } else if (str[i] === ']') {
+            if (stack.length > 0 && stack[stack.length - 1] === '[') {
+                stack.pop(); // If top of stack is open bracket, pop it
+            } else {
+                // If not, we need to swap the current bracket
+                swaps++;
+                stack.push('['); // Push an open bracket onto the stack to balance
+            }
+        }
+    }
+
+    // Remaining unmatched open brackets need to be swapped
+    swaps += Math.ceil(stack.length / 2);
+
+    return swaps;
+}
+
+// Example usage:
+const str = "[]]][[[]";
+console.log(minimumSwapsForBracketBalancing(str)); // Output: 2
+
+```
+
+## Longest Common Subsequence
+
+* create DP 2 array fill first row and column with zero
+* if(s[i][j] == s1[i][j])
+  * dp[i+1][j+1] = 1+dp[i][j]
+* else
+  * dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j])
+* [Explaination](https://www.youtube.com/watch?v=2iT0tl4aq8o&ab_channel=JsCafe)
+
+```javascript
+function getLCSLength(str1, str2) {
+    const n1 = str1.length;
+    const n2 = str2.length;
+    const dp = Array(n1 + 1).fill(0).map(()=>{
+        return Array(n2 + 1).fill(0);
+    }
+    );
+
+    for (let i = 1; i <= n1; i++) {
+        for (let j = 1; j <= n2; j++) {
+            if (str1[i - 1] == str2[j - 1]) {
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[n1][n2]; // 4
+}
+
+console.log('LCS', getLCSLength('hometown', 'omkwn'))
 ```
