@@ -3,22 +3,24 @@
 Hello this is the collection of my all studied topics on DSA, code snippets mostly will be in Javascript
 
 - [DSA](#dsa)
-  - [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
-  - [Reverse the Array](#reverse-the-array)
-  - [Permutations of a given string](#permutations-of-a-given-string)
-  - [Split the binary string into substrings](#split-the-binary-string-into-substrings)
-  - [Next Permutation of a string](#next-permutation-of-a-string)
-  - [Parenthesis Checker](#parenthesis-checker)
-  - [Word Break](#word-break)
-  - [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
-  - [Count the Reversals](#count-the-reversals)
-  - [Find maximum and minimum element in array](#find-maximum-and-minimum-element-in-array)
-  - [Find kth smallest element in array](#find-kth-smallest-element-in-array)
-  - [Count of number of given string in 2D character array](#count-of-number-of-given-string-in-2d-character-array)
-  - [Sort without using sorting Algorithm](#sort-without-using-sorting-algorithm)
-  - [Search a word in 2D grid of characters](#search-a-word-in-2d-grid-of-characters)
-  - [Boyer Moore Algorithm](#boyer-moore-algorithm)
-  - [Convert Roman Numbers Into Decimals](#convert-roman-numbers-into-decimals)
+  1 [Print All Subsequence of a String](#print-all-subsequence-of-a-string)
+  1 [Reverse the Array](#reverse-the-array)
+  1 [Permutations of a given string](#permutations-of-a-given-string)
+  1 [Split the binary string into substrings](#split-the-binary-string-into-substrings)
+  1 [Next Permutation of a string](#next-permutation-of-a-string)
+  1 [Parenthesis Checker](#parenthesis-checker)
+  1 [Word Break](#word-break)
+  1 [Convert Sentence into mobile numeric keypad sequence](#convert-sentence-into-mobile-numeric-keypad-sequence)
+  1 [Count the Reversals](#count-the-reversals)
+  1 [Find maximum and minimum element in array](#find-maximum-and-minimum-element-in-array)
+  1 [Find kth smallest element in array](#find-kth-smallest-element-in-array)
+  1 [Count of number of given string in 2D character array](#count-of-number-of-given-string-in-2d-character-array)
+  1 [Sort without using sorting Algorithm](#sort-without-using-sorting-algorithm)
+  1 [Search a word in 2D grid of characters](#search-a-word-in-2d-grid-of-characters)
+  1 [Boyer Moore Algorithm](#boyer-moore-algorithm)
+  1 [Convert Roman Numbers Into Decimals](#convert-roman-numbers-into-decimals)
+  1 [Longest Common Prefix](#longest-common-prefix)
+  1 [Minimum Number Of Flips](#minimum-number-of-flips)
 
 
 ## Print All Subsequence of a String
@@ -654,4 +656,56 @@ function romanToDecimal(roman) {
 const romanNumeral = "XXIV";
 console.log(romanToDecimal(romanNumeral)); // Output: 24
 
+```
+
+## Longest Common Prefix
+
+* start loop of first string
+* start another loop of array from second string
+* compare each character of first string with corresponding character of all strings
+* return slice of first string when it stops matching
+* [Explaination](https://www.youtube.com/watch?v=0SF6RLMYBcE&ab_channel=DevelopwithAakash)
+
+```javascript
+function longestCommonPrefix(strs) {
+    if(strs.length == 0){
+        return '';
+    }
+    for (let i = 0; i < strs[0].length; i++) {
+        for (let j = 1; j < strs.length; j++) {
+            if (strs[0][i] != strs[j][i])
+                return strs[0].slice(0,i);
+        }
+    }
+    return strs[0];
+}
+
+console.log(longestCommonPrefix(['flower','flow','fligt']));
+```
+
+## Minimum Number Of Flips
+
+* Consider that we need 0 at even index and 1 at odd index
+* if at even index we have 1 , increase flip counter
+* if at odd index we have 0, increase flip counter
+* for other case (0 at odd and 1 at event) just make `string.length-flip`
+* [Explaination](https://www.youtube.com/watch?v=7b2ShX5YMXY&ab_channel=shashCode)
+
+```javascript
+function minFlip(str){
+    let f1 = 0;
+    for(let i=0;i<str.length;i++){
+        if(i%2 == 0){
+            if(str[i] == '1')
+                f1++;
+        }
+        else{
+            if(str[i] == '0')
+                f1++;
+        }
+    }
+    return Math.min(f1,str.length-f1);
+}
+
+console.log(minFlip("0001010111"))
 ```
