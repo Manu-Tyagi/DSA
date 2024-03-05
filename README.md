@@ -24,6 +24,8 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
   - [Second Most Repeating String](#second-most-repeating-string)
   - [Minimum Swaps For Bracket Balancing](#minimum-swaps-for-bracket-balancing)
   - [Longest Common Subsequence](#longest-common-subsequence)
+  - [Generate Valid IP Addresses From String](#generate-valid-ip-addresses-from-string)
+  - [Smallest Distinct Window](#smallest-distinct-window)
 
 
 ## Print All Subsequence of a String
@@ -819,4 +821,115 @@ function getLCSLength(str1, str2) {
 }
 
 console.log('LCS', getLCSLength('hometown', 'omkwn'))
+```
+
+## Generate Valid IP Addresses From String
+
+*   create backtracking method
+*   pick one number from string
+*   validate it
+    *  if it is correct, put in parts array, backtrack again on remaining substring
+    *  if not correct at one number to that number , validate again
+  
+```javascript
+// Function to check if a part of the IP address is valid
+function isValidPart(part) {
+    // Check if part length is greater than 3 or value greater than 255
+    if (part.length > 3 || parseInt(part) > 255) return false;
+    // Check if part length is greater than 1 and starts with '0'
+    if (part.length > 1 && part[0] === '0') return false;
+    return true;
+}
+
+// Backtracking function to generate all possible valid IP addresses
+function backtrack(s, parts, start, result) {
+    // If we have 4 parts and we've reached the end of the string, we found a valid IP
+    if (parts.length === 4 && start === s.length) {
+        result.push(parts.join('.'));
+        return;
+    }
+
+    // If we already have 4 parts or reached the end of the string, stop
+    if (parts.length === 4 || start === s.length) return;
+
+    // Loop through the string starting from 'start' index
+    for (let i = start; i < s.length; i++) {
+        // Get the current part from 'start' to 'i' index
+        let part = s.substring(start, i + 1);
+
+        // Check if the current part is valid
+        if (isValidPart(part)) {
+            // If valid, add it to the 'parts' array
+            parts.push(part);
+            // Recursively call the backtrack function with updated 'start' index
+            backtrack(s, parts, i + 1, result);
+            // Backtrack by removing the last part added to 'parts' array
+            parts.pop();
+        }
+    }
+}
+
+// Function to generate all possible valid IP addresses from a given string
+function generateValidIPs(s) {
+    const result = [];
+    // Call the backtrack function with initial parameters
+    backtrack(s, [], 0, result);
+    return result;
+}
+
+// Example usage:
+const input = "25525511135";
+const validIPs = generateValidIPs(input);
+console.log(validIPs);
+
+```
+
+## Smallest Distinct Window
+
+* [Explaination](https://www.youtube.com/watch?v=Q3iTTwgDb6U)
+
+```javascript
+// Function to find the smallest distinct window in a string
+function smallestDistinctWindow(str) {
+    // Initialize variables
+    let distinctChars = new Set(); // Set to store distinct characters
+    let charCount = {}; // Object to store count of each character
+    let minWindowSize = Infinity; // Initialize the minimum window size to Infinity
+    let windowStart = 0; // Initialize the start index of the current window
+
+    // Iterate through the string to build the window
+    for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+        // Add current character to distinctChars set
+        distinctChars.add(str[windowEnd]);
+
+        // Update the count of current character in charCount object
+        charCount[str[windowEnd]] = (charCount[str[windowEnd]] || 0) + 1;
+
+        // Shrink the window by removing characters from the start
+        while (distinctChars.size === Object.keys(charCount).length) {
+            // Update minimum window size
+            minWindowSize = Math.min(minWindowSize, windowEnd - windowStart + 1);
+
+            // Remove character from the start of the window
+            charCount[str[windowStart]]--;
+
+            // If count becomes zero, remove the character from charCount
+            if (charCount[str[windowStart]] === 0) {
+                delete charCount[str[windowStart]];
+                // Remove character from distinctChars set
+                distinctChars.delete(str[windowStart]);
+            }
+
+            // Move window start to the right
+            windowStart++;
+        }
+    }
+
+    // Return the minimum window size
+    return minWindowSize === Infinity ? 0 : minWindowSize;
+}
+
+// Example usage:
+const str = "abcda";
+console.log("Smallest distinct window size:", smallestDistinctWindow(str)); // Output: 4
 ```
