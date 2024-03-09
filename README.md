@@ -26,6 +26,11 @@ Hello this is the collection of my all studied topics on DSA, code snippets most
   - [Longest Common Subsequence](#longest-common-subsequence)
   - [Generate Valid IP Addresses From String](#generate-valid-ip-addresses-from-string)
   - [Smallest Distinct Window](#smallest-distinct-window)
+  - [Minimum characters to be added at front to make string palindrome](#minimum-characters-to-be-added-at-front-to-make-string-palindrome)
+  - [Remove all adjacent duplicates](#remove-all-adjacent-duplicates)
+  - [Transform One String to Another using Minimum Number of Given Operation](#transform-one-string-to-another-using-minimum-number-of-given-operation)
+  - [Isomorphic String](#isomorphic-string)
+  - [Recursively print all sentences that can be formed from list of word lists](#recursively-print-all-sentences-that-can-be-formed-from-list-of-word-lists)
 
 
 ## Print All Subsequence of a String
@@ -932,4 +937,223 @@ function smallestDistinctWindow(str) {
 // Example usage:
 const str = "abcda";
 console.log("Smallest distinct window size:", smallestDistinctWindow(str)); // Output: 4
+```
+
+## Minimum characters to be added at front to make string palindrome
+
+* Iterate through the string from both ends.
+* If the characters at the current positions are equal, continue iterating inward.
+* If they are not equal, add the characters from the front of the string one by one to match the characters at the end of the string, until the entire string becomes a palindrome.
+
+```javascript
+function minCharsToAddForPalindrome(str) {
+    let count = 0;
+    let i = 0;
+    let j = str.length - 1;
+
+    while (i < j) {
+        if (str[i] === str[j]) {
+            i++;
+            j--;
+        } else {
+            // Move j pointer towards the start
+            // and increase count of characters to be added
+            j--;
+            count++;
+        }
+    }
+
+    return count;
+}
+
+// Example usage:
+const str = "abcd";
+console.log(minCharsToAddForPalindrome(str)); // Output: 3
+
+```
+
+## Remove all adjacent duplicates
+
+* if(s[i]==s[i-1]) skip
+
+```javascript
+removeConsecutiveCharacter(s){
+    //code here
+    let str = ''
+    for(let i=0;i<s.length;i++){
+        if(s[i] != s[i-1]){
+            str+=s[i]
+        }
+    }
+    return str;
+}
+```
+
+## Transform One String to Another using Minimum Number of Given Operation
+
+* We declare a HashMap<Character,Integer> to store frequency map.
+* We store the character of string 1 in the map and then while traversing string 2 ,we erase the characters and if the map is empty at the end that means the characters in both the string are same and we can continue,else we return -1.
+* We make a variable res and point two pointer i and j to the last of both strings and start traversing from back.
+* As soon as see a ith character that doesn’t match with jth character ,we start increasing res by 1 until again both the characters are same.
+* Atlast we return res.
+
+```javascript
+function transform(A, B) {
+	if (A.length !== B.length) {
+		return -1;
+	}
+
+	// Create an object to store the frequency of characters in string A
+	const m = {};
+	const n = A.length;
+	for (let i = 0; i < n; i++) {
+		if (m[A[i]]) { // if the character already exists in the object
+			m[A[i]]++; // increment its frequency
+		} else {
+			m[A[i]] = 1; // add the character to the object with a frequency of 1
+		}
+	}
+
+	// Subtract the frequency of characters in string B from the object
+	for (let i = 0; i < n; i++) {
+		if (m[B[i]]) {
+			m[B[i]]--;
+		}
+	}
+
+	// Check if all the frequencies in the object are 0, 
+	// indicating equal frequency of characters in both strings
+	for (const char in m) {
+		if (m[char] !== 0) { // if frequency is not zero
+			return -1;	 // strings cannot be transformed into each other, return -1
+		}
+	}
+
+	// Calculate the minimum number of operations
+	// required to transform string A into string B
+	let i = n - 1, j = n - 1;
+	let res = 0;
+	while (i >= 0 && j >= 0) {
+		while (i >= 0 && A[i] !== B[j]) {
+			res++; // increment the number of operations required
+			i--;	 // move the pointer i to the left
+		}
+		i--;
+		j--;
+	}
+	return res; // returning result
+}
+
+// Driver code
+const A = "EACBD";
+const B = "EABCD";
+
+console.log("Minimum number of operations required is " + transform(A, B));
+
+```
+
+## Isomorphic String
+
+* We first check if the lengths of the two strings are equal. If not, they cannot be isomorphic.
+* We then iterate through each character of the strings.
+* We use two maps, mapS and mapT, to store the mappings from characters in string s to characters in string t and vice versa.
+* For each character pair (charS, charT):
+  * If neither character has been encountered before, we create mappings in both maps.
+  * If either character has been encountered before, we check if the current mappings match the previous ones. If not, the strings are not isomorphic.
+* If all character mappings are consistent, we return true. Otherwise, we return false.
+
+```javascript
+function isIsomorphic(s, t) {
+    if (s.length !== t.length) {
+        return false;
+    }
+
+    const mapS = new Map();
+    const mapT = new Map();
+
+    for (let i = 0; i < s.length; i++) {
+        const charS = s[i];
+        const charT = t[i];
+
+        if (!mapS.has(charS) && !mapT.has(charT)) {
+            mapS.set(charS, charT);
+            mapT.set(charT, charS);
+        } else {
+            if (mapS.get(charS) !== charT || mapT.get(charT) !== charS) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// Example usage:
+const s1 = "egg";
+const t1 = "add";
+console.log(isIsomorphic(s1, t1)); // Output: true
+
+const s2 = "foo";
+const t2 = "bar";
+console.log(isIsomorphic(s2, t2)); // Output: false
+
+```
+
+## Recursively print all sentences that can be formed from list of word lists
+
+```javascript
+<script>
+
+// JavaScript program recursively print all sentences that can be
+// formed from list of word lists
+const R = 3
+const C = 3
+
+// A recursive function to print all possible sentences that can
+// be formed from a list of word list
+function printUtil(arr, m, n, output){
+
+	// Add current word to output array
+	output[m] = arr[m][n]
+
+	// If this is last word of current output sentence, then print
+	// the output sentence
+	if(m == R - 1){
+		for(let i = 0; i < R; i++)
+			document.write(output[i]," ")
+		document.write("</br>")
+		return
+	}
+
+	// Recur for next row
+	for(let i = 0; i < C; i++){
+		if(arr[m+1][i] != "")
+			printUtil(arr, m+1, i, output)
+	}
+}
+
+// A wrapper over printUtil
+function printf(arr){
+
+	// Create an array to store sentence
+	let output = new Array(R).fill("")
+
+	// Consider all words for first row as starting
+	// points and print all sentences
+	for(let i = 0; i < C; i++){
+		if(arr[0][i] != "")
+			printUtil(arr, 0, i, output)
+	}
+}
+
+// Driver program
+let arr = [ ["you", "we",""],
+		["have", "are",""],
+		["sleep", "eat", "drink"]]
+printf(arr)
+
+// This code is contributed by shinjanpatra
+
+</script>
+
 ```
